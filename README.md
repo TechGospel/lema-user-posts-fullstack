@@ -49,7 +49,7 @@ Ensure the following are installed on your system:
    - Create a `.env` file in the `frontend` directory.
    - Add the following variables:
      ```env
-     REACT_APP_API_BASE_URL=http://localhost:3000
+     REACT_APP_API_BASE_URL=http://localhost:3001
      ```
 
 4. **Run the Frontend Application**
@@ -61,6 +61,10 @@ Ensure the following are installed on your system:
 ---
 
 ## Running Tests
+
+1. ```bash
+   npm test
+   ```
 
 ### Frontend
 1. Navigate to the `frontend` directory:
@@ -79,6 +83,10 @@ Ensure the following are installed on your system:
 To be included in next version
 
 ---
+
+## Production URLs
+1. Frontend application: [https://lema-user-posts-frontend.onrender.com/](https://lema-user-posts-frontend.onrender.com/)
+2. Backend service: [https://lema-user-posts-fullstack.onrender.com/](https://lema-user-posts-fullstack.onrender.com)
 
 ## Notes
 - Ensure both frontend and backend are running simultaneously.

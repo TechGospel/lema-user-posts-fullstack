@@ -1,117 +1,93 @@
-# Web Developer Assignment
+# Application Setup and Run Guide
 
-## Backend
+This document provides step-by-step instructions for setting up and running both the frontend and backend of the application.
 
-### Provided Backend
+## Prerequisites
+Ensure the following are installed on your system:
 
-A Node server written in TypeScript is provided.
-The server utilizes an SQLite database (data.db) containing all relevant data, including users posts and adders.
-The server exposes several partial RESTful API endpoints:
+1. **Node.js** (v16 or higher)
+2. **npm** or **yarn** (package manager)
+3. **SQLite** (for backend database)
 
-- User Endpoints:
-  - GET /users: Returns a list of users with pagination support.
-  - GET /users/count: Returns the total number of users.
-- Post Endpoint:
-  - GET /posts: Returns posts filtered by a specific user ID, using the userId query parameter (e.g., /posts?userId={userId}).
+---
 
-### Backend Requirements
+## Backend Setup
 
-You are required to implement the following backend functionalities:
+1. **Clone the Repository**
+   ```bash
+   git clone https://github.com/TechGospel/lema-user-posts-fullstack
+   cd backend
+   ```
 
-- **Adders to User**
-  - Extend the existing user-related endpoints to include adders (metadata associated with the user).
-  - Query the adders from the database and include them in the user response.
-  - Ensure the adders are properly validated and formatted before returning to the frontend.
-- **Post Deletion**
-  - Create an endpoint to delete a post by its ID.
-  - Remove the post from the database upon successful deletion.
-  - Return appropriate HTTP status codes and messages.
-- **Add a New Post**
-  - Create an endpoint to add a new post for a user, accepting **Title**, **Body**, and **User ID**.
-  - Validate input data and handle errors.
-  - Save the new post to the database upon success.
+2. **Install Dependencies**
+   ```bash
+   npm install
+   ```
 
-## Front-End
+3. **Initialize the Database**
+   ```bash
+   npx knex migrate:latest
+   npx knex seed:run
+   ```
 
-### General Requirements
+4. **Run the Backend Server**
+   ```bash
+   npm start
+   ```
+   The backend will start at [http://localhost:3001](http://localhost:3001).
 
-- Implement the web UI using **TypeScript**, **React**, **React Query**, and **Tailwind CSS**.
-- Follow the **Figma design** provided in the Resources section.
-- Ensure **graceful handling of API errors** or unexpected data from the backend.
-- Components and pages should have **error and loading states**.
-- Include **at least one unit test** for the web UI.
-- Emphasize **code reusability** and **separation of concerns** in your components.
+---
 
-### Users Table
+## Frontend Setup
 
-- Set up an internal API that fetches a list of users from your backend API, using the pagination.
-- Display the users in an organized table with the following features:
-  - **Pagination**: Show 4 users per page.
-  - **User Details**:
-    - Full Name
-    - Email Address
-    - Address formatted as "street, state, city, zipcode". Keep the address column at 392px width and use ellipsis (...) for any overflow.
+1. **Navigate to the Frontend Directory**
+   ```bash
+   cd frontend
+   ```
 
-### User Posts
+2. **Install Dependencies**
+   ```bash
+   npm install
+   ```
 
-- When clicking on a user row, navigate to a new page that displays a list of the user's posts.
-- Fetch the user's posts from your backend API.
-- The page should include:
-  - A header with a summary of the user and the number of posts.
-  - A list of all posts (**no pagination required**).
-  - Each post should display:
-    - **Title**
-    - **Body**
-    - A **Delete** icon.
-      - Clicking the Delete icon should delete the post via your backend API and update the UI accordingly.
-  - An option to **add a new post**:
-    - Include a button that opens a form to create a new post with **Title** and **Body** fields.
-    - Upon submission, the new post should be saved via your backend API and appear in the list of posts without requiring a page refresh.
-- Ensure the design is intuitive and posts are easily readable by closely following the provided Figma design.
+3. **Configure Environment Variables**
+   - Create a `.env` file in the `frontend` directory.
+   - Add the following variables:
+     ```env
+     REACT_APP_API_BASE_URL=http://localhost:3000
+     ```
 
-## Guidelines
+4. **Run the Frontend Application**
+   ```bash
+   npm start
+   ```
+   The application will open in your default browser at [http://localhost:3000](http://localhost:3000).
 
-1. **State Management with React Query**
-   - Use React Query to manage server state.
-   - Ensure efficient data fetching, caching, and synchronization with the backend.
-   - Utilize React Query's features to handle loading and error states.
-2. **Code Reusability and Separation**
-   - Structure your components to promote reusability and maintainability.
-   - Abstract shared logic into custom hooks or utility functions where appropriate.
-   - Follow best practices for component composition and props management.
-3. **Responsiveness**
-   - Ensure the application is responsive and functions well on various screen sizes and devices.
-   - Use Tailwind CSS utilities to create responsive layouts.
-4. **Performance Optimization**
-   - Optimize the application for performance, minimizing unnecessary re-renders.
-   - Use React's memoization techniques where applicable.
-   - Efficiently manage list rendering.
-5. **Error Handling**
-   - Implement robust error handling for API requests and unexpected data.
-   - Provide meaningful feedback to the user in case of errors.
-   - Use try-catch blocks and handle promise rejections appropriately in your backend.
-6. **Testing**
-   - Include at least one unit test for a critical component or functionality in your frontend code.
-   - Use testing libraries such as Jest and React Testing Library.
-   - Write tests that are meaningful and cover important use cases.
+---
 
-## Resources
+## Running Tests
 
-- **Backend Server**: A partially implemented Node server in TypeScript will be provided. You are expected to complete the specified backend functionalities.
-- **SQLite Database**: The backend uses the `data.db` SQLite database, which contains all necessary data.
-- **Figma Design**: Follow the design specifications outlined in the provided Figma file.
-  [Figma Design for Web UI](https://www.figma.com/design/Wkbz27sGWBOFMDocOck4mm/Full-Stack-Developer-Assignment?node-id=0-1&node-type=canvas&t=zK4X8qKaPmxu84XZ-0)
+### Frontend
+1. Navigate to the `frontend` directory:
+   ```bash
+   cd frontend
+   ```
+2. Run the tests:
+   ```bash
+   npm test
+   ```
 
-## Deliverables
 
-- A full-stack application that meets the above requirements.
-- Source code organized and documented for readability.
-- Completed backend functionalities as specified.
-- At least one unit test demonstrating testing of a component or functionality.
-- Instructions on how to run the application locally, including setting up the backend and frontend.
 
-## Submission Instructions
+## API Documentation
 
-- **Code Repository**: Provide access to your code via a Git repository (e.g., GitHub, GitLab).
-- **Readme File**: Include a `README.md` file with instructions on how to install dependencies, set up the database, run migrations (if any), and start both the backend and frontend servers.
-- **Testing Instructions**: Include instructions on how to run your unit tests.
+To be included in next version
+
+---
+
+## Notes
+- Ensure both frontend and backend are running simultaneously.
+- Update `REACT_APP_API_BASE_URL` in the frontend `.env` file if the backend is running on a different URL.
+
+For any issues, please contact the development team or refer to the project repository documentation.
+

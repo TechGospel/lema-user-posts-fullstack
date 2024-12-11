@@ -55,7 +55,7 @@ const Pagination: React.FC<PaginationProps> = ({
   };
 
   return (
-    <div className="flex items-center justify-end mt-4 space-x-2">
+    <div className="flex items-center justify-center md:justify-end mt-4 space-x-0  md:space-x-4">
       <button
         className="px-3 py-1 rounded-l-md hover:bg-gray-100 disabled:opacity-50 flex gap-2 items-center"
         disabled={currentPage === 0}

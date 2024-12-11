@@ -24,15 +24,10 @@ Ensure the following are installed on your system:
    npm install
    ```
 
-3. **Initialize the Database**
-   ```bash
-   npx knex migrate:latest
-   npx knex seed:run
-   ```
 
-4. **Run the Backend Server**
+3. **Run the Backend Server**
    ```bash
-   npm start
+   npm run dev
    ```
    The backend will start at [http://localhost:3001](http://localhost:3001).
 

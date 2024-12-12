@@ -1,12 +1,14 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useMutation, useQuery, useQueryClient } from "react-query";
 import { Link, useLocation, useParams } from "react-router-dom";
-import { deletePost, getPosts, Post, addPost } from "../api/posts";
-import { FaTrashAlt, FaArrowLeft, FaDotCircle } from "react-icons/fa";
+import { deletePost, getPosts, addPost } from "../api/posts";
+import { FaTrashAlt, FaArrowLeft } from "react-icons/fa";
 import { LuCirclePlus, LuDot } from "react-icons/lu";
 import Modal from "./modal";
-import Loader from "./loader";
+import Loader from "../shared/loader";
 import { toast } from "sonner";
+import { Post } from "../types/Post.type";
+import { usePosts } from "../hooks/usePosts";
 
 export const Posts = () => {
 	const queryClient = useQueryClient();
@@ -15,53 +17,40 @@ export const Posts = () => {
 	const [isAddPostModalOpen, setAddPostModalOpen] = useState(false);
 	const [title, setTitle] = useState("");
 	const [content, setContent] = useState("");
-	const { userId } = useParams();
+	const { userId = "" } = useParams();
+
 	const {
-		data: posts,
-		status,
-		error: postsError,
-		refetch,
-	} = useQuery(["posts", userId], () => getPosts(userId as string));
+		posts,
+		addPost,
+		deletePost,
+		isLoading,
+		isAddingPost,
+		isDeletingPost,
+	} = usePosts(userId!);
 
-	const { mutate, isLoading } = useMutation(addPost, {
-		onSuccess: (updatedPosts) => {
-			toast.success("Post published successfully");
-			queryClient.setQueryData(["posts", userId], updatedPosts?.data);
-			resetForm();
-		},
-		onError: (error) => {
-			toast.error(`Error creating post: ${error}`);
-		},
-	});
-
-	const handleSubmit = async (e: any) => {
+	const handleAddPost = async (e: React.MouseEvent<HTMLButtonElement>) => {
 		e.preventDefault();
 
 		if (!title.trim() || !content.trim()) {
 			alert("Title and content are required.");
 			return;
 		}
+
 		try {
-			mutate({
-				userId: user?.id,
-				title,
-				body: content,
-			});
+			await addPost({ userId: userId!, title, body: content });
+			toast.success("Post added successfully!");
+			resetForm();
 		} catch (error) {
-			toast.error("An unexpected error occurred. Please try again");
+			toast.error("Failed to add post");
 		}
 	};
 
-	const handleDeletePost = async (postId: string) => {
-		const result = await deletePost(postId);
-		if (result.data?.success) {
-			toast.error("Post deleted successfully");
-			queryClient.setQueryData(["posts", userId], (oldPosts: any) => {
-				const newPostsList = oldPosts.filter(
-					(post: Post) => post.id !== postId
-				);
-				return [...newPostsList];
-			});
+	const handleDeletePost = async (postId: string, userId: string) => {
+		try {
+			await deletePost({ postId: postId!, userId: userId! });
+			toast.success("Post deleted successfully!");
+		} catch (error) {
+			toast.error("Failed to delete post");
 		}
 	};
 
@@ -71,7 +60,7 @@ export const Posts = () => {
 		setContent("");
 	};
 
-	if (status === "loading")
+	if (isLoading)
 		return (
 			<div className="flex justify-center items-center min-h-screen">
 				<Loader backgroundColor={"#a3a1a1"} />
@@ -107,12 +96,16 @@ export const Posts = () => {
 						<div className="flex items-center justify-end mt-4">
 							<button
 								className="text-red-400 hover:text-red-500"
-								onClick={() => handleDeletePost(post?.id)}>
+								onClick={() =>
+									handleDeletePost(post?.id, userId)
+								}>
 								<FaTrashAlt />
 							</button>
 						</div>
 						<h3 className="font-bold">{post.title}</h3>
-						<p>{post.body}</p>
+						<p title={post.body}>
+							{post.body.substring(0, 160) + "..."}
+						</p>
 					</div>
 				))}
 			</div>
@@ -137,7 +130,7 @@ export const Posts = () => {
 								onChange={(e) => setTitle(e.target.value)}
 								className=" border border-gray-300 text-gray-900 text-sm rounded-lg focus:border-gray-500 block w-full p-2.5"
 								placeholder="Give your post a title"
-								disabled={isLoading}
+								disabled={isAddingPost}
 								required
 							/>
 						</div>
@@ -152,7 +145,7 @@ export const Posts = () => {
 								onChange={(e) => setContent(e.target.value)}
 								className=" border border-gray-300 text-gray-900 text-sm rounded-lg focus:border-gray-500 block w-full p-2.5"
 								placeholder="Write something mind-blowing"
-								disabled={isLoading}
+								disabled={isAddingPost}
 								required
 							/>
 						</div>
@@ -161,15 +154,15 @@ export const Posts = () => {
 							<button
 								onClick={resetForm}
 								className="border px-5 py-2 text-center rounded-md"
-								disabled={isLoading}>
+								disabled={isAddingPost}>
 								Cancel
 							</button>
 
 							<button
-								onClick={handleSubmit}
+								onClick={handleAddPost}
 								className="bg-[#334155] text-white px-5 py-2 text-center rounded-md"
-								disabled={isLoading}>
-								{isLoading ? (
+								disabled={isAddingPost}>
+								{isAddingPost ? (
 									<span className="flex items-center">
 										Publish{" "}
 										<Loader backgroundColor={"#ffffff"} />

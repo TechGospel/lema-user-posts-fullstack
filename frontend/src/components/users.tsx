@@ -1,14 +1,15 @@
 import React, { useState, useEffect } from "react";
-import { getUsers, getUsersCount, User } from "../api/users";
+import { getUsers, getUsersCount } from "../api/users";
 import { useNavigate } from "react-router-dom";
 import { useQuery } from "react-query";
-import Pagination from "./pagination";
-import Loader from "./loader";
+import Pagination from "../shared/pagination";
+import Loader from "../shared/loader";
+import UsersList from "./userList";
+import { useUsers } from "../hooks/useUsers";
 
 const pageSize = 4;
 
 export const Users = () => {
-	const [data, setData] = useState<User[]>();
 	const [currentPage, setCurrentPage] = useState(0);
 	const { data: usersCount, isLoading } = useQuery(
 		"usersCount",
@@ -16,9 +17,13 @@ export const Users = () => {
 	);
 	const [totalPages, setTotalPages] = useState(0);
 	// const { data: usersCount, isLoading } = useQuery("usersCount", getUsersCount);
-	const { data: users, isLoading: isLoadingUsers } = useQuery(
-		["users", currentPage],
-		() => getUsers(currentPage, pageSize)
+	// const { data: users = [], isLoading: isLoadingUsers } = useQuery(
+	// 	["users", currentPage],
+	// 	() => getUsers(currentPage, pageSize)
+	// );
+	const { data: users = [], isLoading: isLoadingUsers } = useUsers(
+		currentPage,
+		pageSize
 	);
 
 	const navigate = useNavigate();
@@ -61,26 +66,7 @@ export const Users = () => {
 						</tbody>
 					) : (
 						<tbody>
-							{users?.map((user: any) => (
-								<tr
-									className="cursor-pointer"
-									key={user.id}
-									onClick={() =>
-										navigate(`/posts/${user.id}`, {
-											state: { user },
-										})
-									}>
-									<td className="border-b border-gray-300 px-4 py-4">
-										{user.fullName}
-									</td>
-									<td className="border-b border-gray-300 px-4 py-4">
-										{user.email}
-									</td>
-									<td className="border-b border-gray-300 px-4 py-4 max-w-[392px] overflow-hidden text-ellipsis whitespace-nowrap">
-										{user.address}
-									</td>
-								</tr>
-							))}
+							<UsersList users={users} />
 						</tbody>
 					)}
 				</table>

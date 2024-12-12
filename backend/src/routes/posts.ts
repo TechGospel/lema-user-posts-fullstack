@@ -15,12 +15,13 @@ router.get("/", async (req: Request, res: Response) => {
 
 router.delete("/", async (req: Request, res: Response) => {
 	const postId = req.query.postId?.toString();
-	if (!postId) {
-		res.status(400).send({ error: "postId is required" });
+	const userId = req.query.userId?.toString();
+	if (!postId || !userId) {
+		res.status(400).send({ error: "postId and userId are required" });
 		return;
 	}
-	const result = await deletePost(postId);
-	res.send({ success: true });
+	const result = await deletePost(postId, userId);
+	res.status(200).send(result);
 });
 
 router.post("/", async (req: Request, res: Response) => {

@@ -20,7 +20,12 @@ const queryClient = new QueryClient({
 function App() {
 	return (
 		<QueryClientProvider client={queryClient}>
-			<Toaster position="top-right" richColors closeButton />
+			<Toaster
+				position="top-right"
+				duration={3000}
+				richColors
+				closeButton
+			/>
 			<Routes>
 				<Route path="/" element={<Users />} />
 				<Route path="/posts/:userId" element={<Posts />} />

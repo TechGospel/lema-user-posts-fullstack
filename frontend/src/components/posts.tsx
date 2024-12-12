@@ -73,7 +73,7 @@ export const Posts = () => {
 
 	if (status === "loading")
 		return (
-			<div className="flex justify-center items-center min-h-full">
+			<div className="flex justify-center items-center min-h-screen">
 				<Loader backgroundColor={"#a3a1a1"} />
 			</div>
 		);

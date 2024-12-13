@@ -85,7 +85,7 @@ To be included in next version
 ---
 
 ## Production URLs
-1. Frontend application: [https://lema-user-posts-frontend.onrender.com/](https://lema-user-posts-frontend.onrender.com/)
+1. Frontend application: [https://lema-user-posts-fullstack-baqk.vercel.app/](https://lema-user-posts-fullstack-baqk.vercel.app/)
 2. Backend service: [https://lema-user-posts-fullstack.onrender.com/](https://lema-user-posts-fullstack.onrender.com)
 
 ## Notes

@@ -114,7 +114,7 @@ export const Posts = () => {
             className="p-2 border border-gray-300 rounded-lg shadow-md"
           >
             <div className="px-2 pb-4">
-              <div className="flex items-center justify-end mt-2">
+              <div className="flex items-center justify-end my-2">
                 <button
                   className="text-[#fa6b7d] hover:text-red-500"
                   onClick={() => handleDeletePost(post?.id, userId)}
@@ -122,7 +122,7 @@ export const Posts = () => {
                   <FaTrashAlt size={13} />
                 </button>
               </div>
-              <h3 className="font-semibold mb-3">{post.title}</h3>
+              <h3 className="text-[18px] leading-6 mb-3">{post.title}</h3>
               <p title={post.body}>{post.body.substring(0, 160) + "..."}</p>
             </div>
           </div>

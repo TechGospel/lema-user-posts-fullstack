@@ -25,6 +25,7 @@ input::placeholder {
 }
 
 p,
+button,
 td {
   font-weight: 400;
 }

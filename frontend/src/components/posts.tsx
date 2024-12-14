@@ -119,7 +119,7 @@ export const Posts = () => {
                   className="text-[#fa6b7d] hover:text-red-500"
                   onClick={() => handleDeletePost(post?.id, userId)}
                 >
-                  <FaTrashAlt size={14} />
+                  <FaTrashAlt size={13} />
                 </button>
               </div>
               <h3 className="font-semibold mb-3">{post.title}</h3>

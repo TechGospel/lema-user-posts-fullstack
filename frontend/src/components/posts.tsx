@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useMutation, useQuery, useQueryClient } from "react-query";
-import { Link, useLocation, useParams } from "react-router-dom";
+import { Link, useLocation, useParams, useNavigate } from "react-router-dom";
 import { deletePost, getPosts, addPost } from "../api/posts";
 import { FaTrashAlt, FaArrowLeft } from "react-icons/fa";
 import { LuCirclePlus, LuDot } from "react-icons/lu";
@@ -11,6 +11,7 @@ import { Post } from "../types/Post.type";
 import { usePosts } from "../hooks/usePosts";
 
 export const Posts = () => {
+	const navigate = useNavigate();
 	const queryClient = useQueryClient();
 	const { state } = useLocation();
 	const user = state?.user;
@@ -18,6 +19,9 @@ export const Posts = () => {
 	const [title, setTitle] = useState("");
 	const [content, setContent] = useState("");
 	const { userId = "" } = useParams();
+	const location = useLocation();
+	const queryParams = new URLSearchParams(location.search);
+	const currentPage = queryParams.get("page") || "0";
 
 	const {
 		posts,
@@ -70,11 +74,11 @@ export const Posts = () => {
 	return (
 		<div className="p-4">
 			<div className="mb-4 items-center">
-				<Link
-					to="/"
+				<p
+					onClick={() => navigate(`/?page=${currentPage}`)}
 					className="text-[#535862] hover:underline flex items-center gap-2">
 					<FaArrowLeft /> Back to Users
-				</Link>
+				</p>
 				<h2 className="text-3xl text-[#181D27] font-semibold py-2">
 					{user?.fullName}
 				</h2>

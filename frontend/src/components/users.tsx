@@ -45,9 +45,9 @@ export const Users = () => {
         <table className="hidden md:table table-auto w-full mt-4 border-collapse border rounded-lg text-left border-gray-300">
           <thead>
             <tr>
-              <th className="font-normal px-4 py-2">Full Name</th>
-              <th className="font-normal px-4 py-2">Email Address</th>
-              <th className="font-normal px-4 py-2">Address</th>
+              <th className="px-4 py-2">Full Name</th>
+              <th className=" px-4 py-2">Email Address</th>
+              <th className=" px-4 py-2">Address</th>
             </tr>
           </thead>
 

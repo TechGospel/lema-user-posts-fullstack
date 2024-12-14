@@ -88,7 +88,7 @@ export const Posts = () => {
       <div className="mb-4 items-center">
         <p
           onClick={() => navigate(`/`, { state: { currentPage } })}
-          className="text-[#535862] hover:underline flex items-center gap-2"
+          className="text-[#535862] hover:underline flex items-center gap-2 font-semibold"
         >
           <FaArrowLeft /> Back to Users
         </p>
@@ -96,7 +96,8 @@ export const Posts = () => {
           {user?.fullName}
         </h2>
         <p className="flex items-center">
-          {user?.email} <LuDot size={30} /> {`${posts?.length} posts`}
+          {user?.email} <LuDot size={30} />{" "}
+          <span className="font-semibold">{`${posts?.length} posts`}</span>
         </p>
       </div>
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mt-4">

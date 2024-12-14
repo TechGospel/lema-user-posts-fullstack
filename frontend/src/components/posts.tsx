@@ -134,7 +134,7 @@ export const Posts = () => {
           setAddPostModalOpen(false);
         }}
         title="New Post"
-        width="w-[500px]"
+        width="w-[600px]"
       >
         <div className="flex flex-col justify-center items-center">
           <form className="w-full">

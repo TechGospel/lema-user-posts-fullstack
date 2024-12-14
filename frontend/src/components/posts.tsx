@@ -104,24 +104,26 @@ export const Posts = () => {
           onClick={() => setAddPostModalOpen(true)}
           className="p-4 cursor-pointer border border-dashed text-[#717680] min-h-[250px] border-gray-300 rounded-md flex flex-col items-center justify-center"
         >
-          <LuCirclePlus />
-          <button className="">New Post</button>
+          <LuCirclePlus strokeWidth={2.5} />
+          <button className="font-semibold">New Post</button>
         </div>
         {posts?.map((post: Post) => (
           <div
             key={post.id}
-            className="p-4 border border-gray-300 rounded-lg shadow-md"
+            className="p-2 border border-gray-300 rounded-lg shadow-md"
           >
-            <div className="flex items-center justify-end mt-4">
-              <button
-                className="text-red-400 hover:text-red-500"
-                onClick={() => handleDeletePost(post?.id, userId)}
-              >
-                <FaTrashAlt />
-              </button>
+            <div className="px-2 pb-4">
+              <div className="flex items-center justify-end mt-2">
+                <button
+                  className="text-[#fa6b7d] hover:text-red-500"
+                  onClick={() => handleDeletePost(post?.id, userId)}
+                >
+                  <FaTrashAlt size={14} />
+                </button>
+              </div>
+              <h3 className="font-semibold mb-3">{post.title}</h3>
+              <p title={post.body}>{post.body.substring(0, 160) + "..."}</p>
             </div>
-            <h3 className="font-bold">{post.title}</h3>
-            <p title={post.body}>{post.body.substring(0, 160) + "..."}</p>
           </div>
         ))}
       </div>

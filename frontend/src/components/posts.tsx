@@ -122,10 +122,12 @@ export const Posts = () => {
                   <FaTrashAlt size={13} />
                 </button>
               </div>
-              <h3 className="text-[18px] leading-6 mb-3 break-words">
+              <h3 className="font-medium text-[18px] leading-6 mb-3 break-words">
                 {post.title}
               </h3>
-              <p title={post.body}>{post.body.substring(0, 160) + "..."}</p>
+              <p className="text-sm" title={post.body}>
+                {post.body.substring(0, 205) + "..."}
+              </p>
             </div>
           </div>
         ))}

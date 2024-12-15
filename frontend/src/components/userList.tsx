@@ -21,13 +21,15 @@ const UsersList = ({
             navigate(`/posts/${user?.id}`, { state: { user, currentPage } })
           }
         >
-          <td className=" name-column border-b border-gray-300 px-4 py-4">
+          <td className="name-column text-sm border-b border-gray-300 px-6 py-4">
             {user?.fullName}
           </td>
-          <td className="border-b border-gray-300 px-4 py-4">{user?.email}</td>
+          <td className="border-b text-sm border-gray-300 px-6 py-4">
+            {user?.email}
+          </td>
           <td
             title={user?.address}
-            className="border-b border-gray-300 px-4 py-4 max-w-[392px] overflow-hidden text-ellipsis whitespace-nowrap"
+            className="border-b text-sm border-gray-300 px-6 py-4 max-w-[392px] overflow-hidden text-ellipsis whitespace-nowrap"
           >
             {user?.address}
           </td>

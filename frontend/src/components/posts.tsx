@@ -131,7 +131,7 @@ export const Posts = () => {
               </div>
               <h3
                 title={post.title}
-                className="font-medium text-[18px] leading-6 mb-3 overflow-hidden text-ellipsis whitespace-nowrap"
+                className="font-medium text-[18px] leading-6 w-4/5 mb-3 break-words"
               >
                 {post.title}
               </h3>

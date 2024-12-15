@@ -84,7 +84,7 @@ export const Posts = () => {
     );
 
   return (
-    <div className="p-4">
+    <div className="p-4 mx-auto max-w-[800px]">
       <div className="mb-4 items-center">
         <p
           onClick={() => navigate(`/`, { state: { currentPage } })}

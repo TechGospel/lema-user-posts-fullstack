@@ -21,6 +21,11 @@ export const Posts = () => {
   const { userId = "" } = useParams();
   const currentPage = state?.currentPage || 0;
 
+  const onAddSuccess = () => {
+    toast.success("Post added successfully!");
+    resetForm();
+  };
+
   const {
     posts,
     addPost,
@@ -28,7 +33,7 @@ export const Posts = () => {
     isLoading,
     isAddingPost,
     isDeletingPost,
-  } = usePosts(userId!);
+  } = usePosts(userId!, onAddSuccess);
 
   const validatePost = (title: string, content: string) => {
     if (!title.trim() || !content.trim()) {
@@ -54,8 +59,6 @@ export const Posts = () => {
 
     try {
       await addPost({ userId: userId!, title, body: content });
-      toast.success("Post added successfully!");
-      resetForm();
     } catch (error) {
       toast.error("Failed to add post");
     }
@@ -110,7 +113,7 @@ export const Posts = () => {
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mt-4">
         <div
           onClick={() => setAddPostModalOpen(true)}
-          className="p-4 cursor-pointer border border-dashed text-[#717680] min-h-[250px] border-gray-300 rounded-md flex flex-col items-center justify-center"
+          className="p-4 cursor-pointer border border-dashed text-[#717680] min-h-[250px] border-gray-300 rounded-lg flex flex-col items-center justify-center"
         >
           <LuCirclePlus strokeWidth={2.5} />
           <button className="font-semibold text-sm py-1">New Post</button>
@@ -121,7 +124,7 @@ export const Posts = () => {
             className="pt-2 px-6 pb-6 border border-gray-300 rounded-lg shadow-md"
           >
             <div className="px-2 pb-4">
-              <div className="flex items-center justify-end my-2">
+              <div className="flex items-center justify-end my-2 -mr-4">
                 <button
                   className="text-[#fa6b7d] hover:text-red-500"
                   onClick={() => handleDeletePost(post?.id, userId)}
@@ -154,7 +157,7 @@ export const Posts = () => {
         <div className="flex flex-col justify-center items-center">
           <form className="w-full">
             <div className="mb-5">
-              <label className="block mb-2 text-sm font-medium  dark:text-white">
+              <label className="block mb-2 text-lg font-medium text-[#535862]">
                 Post Title
               </label>
               <input
@@ -162,14 +165,14 @@ export const Posts = () => {
                 name="title"
                 value={title}
                 onChange={(e) => setTitle(e.target.value)}
-                className=" border border-gray-300 text-gray-900 text-sm rounded-lg focus:border-gray-500 block w-full p-2.5"
+                className="text-small font-normal border border-gray-300 text-gray-900 text-sm rounded-[4px] focus:border-gray-500 block w-full p-2.5"
                 placeholder="Give your post a title"
                 disabled={isAddingPost}
                 required
               />
             </div>
             <div className="mb-5">
-              <label className="block mb-2 text-sm font-medium  dark:text-white">
+              <label className="block mb-2 text-lg font-medium  text-[#535862]">
                 Post Content
               </label>
               <textarea
@@ -177,7 +180,7 @@ export const Posts = () => {
                 name="content"
                 value={content}
                 onChange={(e) => setContent(e.target.value)}
-                className=" border border-gray-300 text-gray-900 text-sm rounded-lg focus:border-gray-500 block w-full p-2.5"
+                className="text-small font-normal resize-none border border-gray-300 text-gray-900 text-sm rounded-[4px] focus:border-gray-500 block w-full p-2.5"
                 placeholder="Write something mind-blowing"
                 disabled={isAddingPost}
                 required
@@ -199,8 +202,11 @@ export const Posts = () => {
                 disabled={isAddingPost}
               >
                 {isAddingPost ? (
-                  <span className="flex items-center">
-                    Publish <Loader backgroundColor={"#ffffff"} />
+                  <span className="flex items-center gap-2">
+                    Publish{" "}
+                    <span className="mt-2">
+                      <Loader backgroundColor={"#ffffff"} size={"20px"} />
+                    </span>
                   </span>
                 ) : (
                   "Publish"

@@ -26,11 +26,11 @@ const Modal: React.FC<CustomModalProps> = ({
       className={`fixed inset-0 flex items-center justify-center ${modalBgStyle} z-50`}
     >
       <div
-        className={`bg-white rounded-lg shadow-lg ${width} mx-4 p-6 relative`}
+        className={`bg-white rounded-lg custom-shadow ${width} mx-4 p-6 relative`}
       >
         {/* Modal Header */}
         <div className="flex  border-b items-center pb-3 mb-2">
-          <h2 className="text-2xl font-semibold">{title}</h2>
+          <h2 className="text-4xl font-medium text-[#181D27]">{title}</h2>
         </div>
 
         {/* Modal Content */}

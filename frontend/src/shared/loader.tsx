@@ -1,14 +1,29 @@
 import React from "react";
 
-const Loader = ({ backgroundColor }: { backgroundColor: string }) => {
+const Loader = ({
+  backgroundColor,
+  size,
+}: {
+  backgroundColor: string;
+  size?: string;
+}) => {
   return (
     <>
-      <div className="lds-ellipsis" style={{ color: backgroundColor }}>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-      </div>
+      {size === "20px" ? (
+        <div className="lds-ellipsis-small" style={{ color: backgroundColor }}>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+        </div>
+      ) : (
+        <div className="lds-ellipsis" style={{ color: backgroundColor }}>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+        </div>
+      )}
     </>
   );
 };

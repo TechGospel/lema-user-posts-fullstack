@@ -95,14 +95,14 @@ export const Posts = () => {
       <div className="mb-4 items-center">
         <p
           onClick={() => navigate(`/`, { state: { currentPage } })}
-          className="text-[#535862] cursor-pointer flex items-center gap-2 font-semibold"
+          className="text-[#535862] cursor-pointer flex items-center gap-2 text-sm font-semibold"
         >
           <FaArrowLeft /> Back to Users
         </p>
-        <h2 className="text-3xl text-[#181D27] font-semibold py-2">
+        <h2 className="text-[36px] font-medium text-[#181D27] py-2">
           {user?.fullName}
         </h2>
-        <p className="flex items-center">
+        <p className="flex items-center text-sm">
           {user?.email} <LuDot size={30} />{" "}
           <span className="font-semibold">{`${posts?.length} posts`}</span>
         </p>
@@ -113,7 +113,7 @@ export const Posts = () => {
           className="p-4 cursor-pointer border border-dashed text-[#717680] min-h-[250px] border-gray-300 rounded-md flex flex-col items-center justify-center"
         >
           <LuCirclePlus strokeWidth={2.5} />
-          <button className="font-semibold">New Post</button>
+          <button className="font-semibold text-sm py-1">New Post</button>
         </div>
         {posts?.map((post: Post) => (
           <div

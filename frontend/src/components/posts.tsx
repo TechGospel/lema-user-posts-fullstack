@@ -91,7 +91,7 @@ export const Posts = () => {
     );
 
   return (
-    <div className="p-4 mx-auto max-w-[800px]">
+    <div className="p-4 mx-auto max-w-[850px]">
       <div className="mb-4 items-center">
         <p
           onClick={() => navigate(`/`, { state: { currentPage } })}
@@ -118,7 +118,7 @@ export const Posts = () => {
         {posts?.map((post: Post) => (
           <div
             key={post.id}
-            className="p-2 border border-gray-300 rounded-lg shadow-md"
+            className="pt-2 px-6 pb-6 border border-gray-300 rounded-lg shadow-md"
           >
             <div className="px-2 pb-4">
               <div className="flex items-center justify-end my-2">

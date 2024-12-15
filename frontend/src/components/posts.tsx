@@ -76,6 +76,13 @@ export const Posts = () => {
     setContent("");
   };
 
+  const showEllipsis = (post: string) => {
+    if (post.length > 205) {
+      return post.substring(0, 205) + "...";
+    }
+    return post;
+  };
+
   if (isLoading)
     return (
       <div className="flex justify-center items-center min-h-screen">
@@ -88,7 +95,7 @@ export const Posts = () => {
       <div className="mb-4 items-center">
         <p
           onClick={() => navigate(`/`, { state: { currentPage } })}
-          className="text-[#535862] hover:underline flex items-center gap-2 font-semibold"
+          className="text-[#535862] cursor-pointer flex items-center gap-2 font-semibold"
         >
           <FaArrowLeft /> Back to Users
         </p>
@@ -122,11 +129,14 @@ export const Posts = () => {
                   <FaTrashAlt size={13} />
                 </button>
               </div>
-              <h3 className="font-medium text-[18px] leading-6 mb-3 break-words">
+              <h3
+                title={post.title}
+                className="font-medium text-[18px] leading-6 mb-3 overflow-hidden text-ellipsis whitespace-nowrap"
+              >
                 {post.title}
               </h3>
-              <p className="text-sm" title={post.body}>
-                {post.body.substring(0, 205) + "..."}
+              <p className="text-sm break-words" title={post.body}>
+                {showEllipsis(post?.body)}
               </p>
             </div>
           </div>

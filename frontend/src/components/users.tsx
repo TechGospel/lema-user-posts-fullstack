@@ -40,7 +40,7 @@ export const Users = () => {
 
   return (
     <div className="p-4 my-0 md:my-24">
-      <h1 className="text-3xl font-bold">Users</h1>
+      <h1 className="text-[60px] leading-[72px] font-medium">Users</h1>
       <div className="overflow-x-auto">
         <table className="hidden md:table table-auto w-full mt-4 border-collapse border rounded-lg text-left border-gray-300">
           <thead>

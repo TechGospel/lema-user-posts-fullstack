@@ -76,7 +76,7 @@ export const Users = () => {
               key={user.id}
               onClick={() =>
                 navigate(`/posts/${user.id}`, {
-                  state: { user },
+                  state: { user, currentPage },
                 })
               }
             >

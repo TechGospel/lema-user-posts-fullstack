@@ -105,9 +105,9 @@ export const Posts = () => {
         <h2 className="text-[36px] font-medium text-[#181D27] py-2">
           {user?.fullName}
         </h2>
-        <p className="flex items-center text-sm">
-          {user?.email} <LuDot size={30} />{" "}
-          <span className="font-semibold">{`${posts?.length} posts`}</span>
+        <p className="block md:flex  items-center text-sm">
+          {user?.email} <LuDot className="hidden md:flex" size={30} />{" "}
+          <span className="font-semibold block mt-2 md:mt-0 md:flex">{`${posts?.length} posts`}</span>
         </p>
       </div>
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mt-4">

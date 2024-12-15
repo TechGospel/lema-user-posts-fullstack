@@ -6,6 +6,7 @@ import Pagination from "../shared/pagination";
 import Loader from "../shared/loader";
 import UsersList from "./userList";
 import { useUsers } from "../hooks/useUsers";
+import MobilePagination from "../shared/MobilePagination";
 
 const pageSize = 4;
 
@@ -105,12 +106,20 @@ export const Users = () => {
           )}
         </div>
       </div>
-
-      <Pagination
-        currentPage={currentPage}
-        totalPages={totalPages}
-        onPageChange={handlePageChange}
-      />
+      <div className="hidden md:block">
+        <Pagination
+          currentPage={currentPage}
+          totalPages={totalPages}
+          onPageChange={handlePageChange}
+        />
+      </div>
+      <div className="block md:hidden">
+        <MobilePagination
+          currentPage={currentPage}
+          totalPages={totalPages}
+          onPageChange={handlePageChange}
+        />
+      </div>
     </div>
   );
 };

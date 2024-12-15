@@ -5,41 +5,47 @@ interface PaginationProps {
   currentPage: number; // Zero-indexed
   totalPages: number; // Total number of pages
   onPageChange: (page: number) => void;
-  siblingCount?: number; // Number of page buttons to show around the current page
 }
 
 const Pagination: React.FC<PaginationProps> = ({
   currentPage,
   totalPages,
   onPageChange,
-  siblingCount = 2,
 }) => {
   const generatePageRange = () => {
     const pages: number[] = [];
-    const startPages = [0, 1, 2]; // Always show the first three pages
-    const endPages = [totalPages - 3, totalPages - 2, totalPages - 1]; // Always show the last three pages
 
-    const startEllipsis =
-      Math.max(...startPages) + 1 < currentPage - siblingCount;
-    const endEllipsis = Math.min(...endPages) - 1 > currentPage + siblingCount;
-
-    const middleStart = Math.max(3, currentPage - siblingCount);
-    const middleEnd = Math.min(totalPages - 4, currentPage + siblingCount);
-
-    if (startEllipsis) {
-      pages.push(...startPages, -1);
-    } else {
-      pages.push(...startPages.filter((page) => page < middleStart));
+    // Always show the first page
+    if (currentPage > 2) {
+      pages.push(0);
+      if (currentPage > 3) {
+        pages.push(-1); // Ellipsis
+      }
     }
 
-    for (let i = middleStart; i <= middleEnd; i++) {
+    // Show up to 2 pages before the current page
+    for (let i = Math.max(0, currentPage - 2); i < currentPage; i++) {
       pages.push(i);
     }
 
-    if (endEllipsis) {
-      pages.push(-1, ...endPages);
-    } else {
-      pages.push(...endPages.filter((page) => page > middleEnd));
+    // Show the current page
+    pages.push(currentPage);
+
+    // Show up to 2 pages after the current page
+    for (
+      let i = currentPage + 1;
+      i < Math.min(currentPage + 3, totalPages);
+      i++
+    ) {
+      pages.push(i);
+    }
+
+    // Always show the last page
+    if (currentPage < totalPages - 3) {
+      if (currentPage < totalPages - 4) {
+        pages.push(-1); // Ellipsis
+      }
+      pages.push(totalPages - 1);
     }
 
     return pages;

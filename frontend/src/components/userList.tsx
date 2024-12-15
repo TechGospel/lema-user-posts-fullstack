@@ -18,7 +18,9 @@ const UsersList = ({
           key={user?.id}
           className="cursor-pointer"
           onClick={() =>
-            navigate(`/posts/${user?.id}`, { state: { user, currentPage } })
+            navigate(`/posts/${user?.id}?page=${currentPage}`, {
+              state: { user },
+            })
           }
         >
           <td className="name-column text-sm border-b border-gray-300 px-6 py-4">

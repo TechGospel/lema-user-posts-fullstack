@@ -10,16 +10,13 @@ import { useUsers } from "../hooks/useUsers";
 const pageSize = 4;
 
 export const Users = () => {
-  const { state } = useLocation();
-  console.log("current page", state?.currentPage);
-  const [currentPage, setCurrentPage] = useState(state?.currentPage || 0);
+  const { state, search } = useLocation();
+  const params = new URLSearchParams(search);
+  const [currentPage, setCurrentPage] = useState(
+    Number(params.get("page")) || 0
+  );
   const { data: usersCount, isLoading } = useQuery("usersCount", getUsersCount);
   const [totalPages, setTotalPages] = useState(0);
-  // const { data: usersCount, isLoading } = useQuery("usersCount", getUsersCount);
-  // const { data: users = [], isLoading: isLoadingUsers } = useQuery(
-  // 	["users", currentPage],
-  // 	() => getUsers(currentPage, pageSize)
-  // );
   const { data: users = [], isLoading: isLoadingUsers } = useUsers(
     currentPage,
     pageSize
@@ -30,6 +27,16 @@ export const Users = () => {
   useEffect(() => {
     setTotalPages(usersCount! / pageSize);
   }, [isLoading]);
+
+  const handlePageChange = async (page: number) => {
+    await setCurrentPage(page);
+    const searchParams = new URLSearchParams(window.location.search);
+    searchParams.set("page", page.toString());
+
+    const newSearch = searchParams.toString();
+    const newPath = `${window.location.pathname}?${newSearch}`;
+    navigate(newPath);
+  };
 
   if (isLoading)
     return (
@@ -102,7 +109,7 @@ export const Users = () => {
       <Pagination
         currentPage={currentPage}
         totalPages={totalPages}
-        onPageChange={setCurrentPage}
+        onPageChange={handlePageChange}
       />
     </div>
   );

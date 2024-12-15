@@ -97,7 +97,7 @@ export const Posts = () => {
     <div className="p-4 mx-auto max-w-[850px]">
       <div className="mb-4 items-center">
         <p
-          onClick={() => navigate(`/`, { state: { currentPage } })}
+          onClick={() => navigate(-1)}
           className="text-[#535862] cursor-pointer flex items-center gap-2 text-sm font-semibold"
         >
           <FaArrowLeft /> Back to Users
